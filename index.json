@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "updatedAt": "2026-03-18",
+  "templates": [
+    {
+      "id": "content-creator",
+      "name": "Content Creator Team",
+      "description": "Research, script, SEO, and review pipeline for content creators",
+      "author": "nxank4",
+      "version": "1.0.0",
+      "tags": ["content", "youtube", "social-media", "writing"],
+      "estimatedCostPerRun": 0.07,
+      "stars": 0,
+      "downloads": 0,
+      "createdAt": "2026-03-18",
+      "path": "templates/content-creator/template.json"
+    },
+    {
+      "id": "indie-hacker",
+      "name": "Indie Hacker Team",
+      "description": "Full engineering team for solo developers and micro-SaaS builders",
+      "author": "nxank4",
+      "version": "1.0.0",
+      "tags": ["coding", "saas", "engineering", "startup"],
+      "estimatedCostPerRun": 0.12,
+      "stars": 0,
+      "downloads": 0,
+      "createdAt": "2026-03-18",
+      "path": "templates/indie-hacker/template.json"
+    },
+    {
+      "id": "research-intelligence",
+      "name": "Research & Intelligence Team",
+      "description": "Market research, competitor analysis, and synthesis pipeline",
+      "author": "nxank4",
+      "version": "1.0.0",
+      "tags": ["research", "market", "analysis", "intelligence"],
+      "estimatedCostPerRun": 0.06,
+      "stars": 0,
+      "downloads": 0,
+      "createdAt": "2026-03-18",
+      "path": "templates/research-intelligence/template.json"
+    },
+    {
+      "id": "business-ops",
+      "name": "Business Operations Team",
+      "description": "Process, validate, approve, and report pipeline for business workflows",
+      "author": "nxank4",
+      "version": "1.0.0",
+      "tags": ["business", "operations", "automation", "reporting"],
+      "estimatedCostPerRun": 0.05,
+      "stars": 0,
+      "downloads": 0,
+      "createdAt": "2026-03-18",
+      "path": "templates/business-ops/template.json"
+    },
+    {
+      "id": "full-stack-sprint",
+      "name": "Full Stack Sprint Team",
+      "description": "Architect, build frontend and backend, QA, and document in one sprint",
+      "author": "nxank4",
+      "version": "1.0.0",
+      "tags": ["fullstack", "coding", "engineering", "sprint"],
+      "estimatedCostPerRun": 0.18,
+      "stars": 0,
+      "downloads": 0,
+      "createdAt": "2026-03-18",
+      "path": "templates/full-stack-sprint/template.json"
+    }
+  ]
+}

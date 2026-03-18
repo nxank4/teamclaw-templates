@@ -1,0 +1,84 @@
+name: Update Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'templates/**'
+
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Regenerate index.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+
+          // Read existing index to preserve stars/downloads
+          const existingIndex = JSON.parse(fs.readFileSync('index.json', 'utf8'));
+          const existingMap = {};
+          for (const t of existingIndex.templates || []) {
+            existingMap[t.id] = { stars: t.stars || 0, downloads: t.downloads || 0, createdAt: t.createdAt };
+          }
+
+          // Read all template.json files
+          const templatesDir = 'templates';
+          const templates = [];
+          const dirs = fs.readdirSync(templatesDir);
+
+          for (const dir of dirs) {
+            const templatePath = path.join(templatesDir, dir, 'template.json');
+            if (!fs.existsSync(templatePath)) continue;
+
+            try {
+              const template = JSON.parse(fs.readFileSync(templatePath, 'utf8'));
+              const existing = existingMap[template.id] || {};
+              templates.push({
+                id: template.id,
+                name: template.name,
+                description: template.description,
+                author: template.author,
+                version: template.version,
+                tags: template.tags,
+                estimatedCostPerRun: template.estimatedCostPerRun,
+                stars: existing.stars || 0,
+                downloads: existing.downloads || 0,
+                createdAt: existing.createdAt || new Date().toISOString().split('T')[0],
+                path: 'templates/' + dir + '/template.json'
+              });
+            } catch (e) {
+              console.error('Failed to parse ' + templatePath + ': ' + e.message);
+            }
+          }
+
+          templates.sort((a, b) => a.id.localeCompare(b.id));
+
+          const index = {
+            version: '1.0.0',
+            updatedAt: new Date().toISOString().split('T')[0],
+            templates
+          };
+
+          fs.writeFileSync('index.json', JSON.stringify(index, null, 2) + '\n');
+          console.log('Updated index.json with ' + templates.length + ' templates');
+          "
+
+      - name: Commit and push updated index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          git diff --cached --quiet && echo "No changes to index.json" && exit 0
+          git commit -m "chore: update index.json [skip ci]"
+          git push

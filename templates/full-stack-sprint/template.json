@@ -1,0 +1,48 @@
+{
+  "id": "full-stack-sprint",
+  "name": "Full Stack Sprint Team",
+  "version": "1.0.0",
+  "author": "nxank4",
+  "description": "Architect, build frontend and backend, QA, and document in one sprint",
+  "tags": ["fullstack", "coding", "engineering", "sprint"],
+  "defaultGoalTemplate": "Build {feature} with frontend and backend for {projectName}",
+  "estimatedCostPerRun": 0.18,
+  "minRuns": 2,
+  "agents": [
+    {
+      "role": "tech-lead",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["architecture", "design"],
+      "systemPromptOverride": "You are a full-stack architect. Design clean, practical systems. Define the API contract before implementation. Keep the data model simple. Make decisions the team can execute quickly.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["frontend", "ui", "implement"],
+      "systemPromptOverride": "You are a frontend engineer. Build clean, accessible UI. Follow the API contract defined by the architect. Keep components small and focused.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["backend", "api", "database", "implement"],
+      "systemPromptOverride": "You are a backend engineer. Build reliable APIs and data layers. Validate inputs, handle errors gracefully, write clear endpoint documentation.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "qa-reviewer",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["test", "review"],
+      "systemPromptOverride": "Review both frontend and backend for integration issues, missing error states, and security gaps. Test the happy path and at least 3 failure scenarios.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "rfc-author",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["document", "docs"],
+      "systemPromptOverride": "Write developer documentation for the feature. Include API reference, setup instructions, and common gotchas. Write for a developer who has never seen this code.",
+      "compositionRules": { "required": false }
+    }
+  ]
+}

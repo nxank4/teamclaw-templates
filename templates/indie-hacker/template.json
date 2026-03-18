@@ -1,0 +1,44 @@
+{
+  "id": "indie-hacker",
+  "name": "Indie Hacker Team",
+  "version": "1.0.0",
+  "author": "nxank4",
+  "description": "Full engineering team for solo developers and micro-SaaS builders",
+  "tags": ["coding", "saas", "engineering", "startup"],
+  "defaultGoalTemplate": "Build {feature} for {projectName}",
+  "estimatedCostPerRun": 0.12,
+  "minRuns": 2,
+  "agents": [
+    {
+      "role": "tech-lead",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["architecture", "design", "review"],
+      "systemPromptOverride": "You are a pragmatic tech lead for an indie hacker project. Prioritize simplicity, shipping speed, and avoiding over-engineering. Push back on complexity. Make decisions fast.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["implement", "build", "code"],
+      "systemPromptOverride": "You are a full-stack engineer. Write clean, working code. Prefer boring technology. Comment complex logic. Always include basic error handling.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "qa-reviewer",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["test", "review", "validate"],
+      "systemPromptOverride": "Review code for bugs, edge cases, and security issues. Focus on what could go wrong in production. Flag anything that looks like future technical debt.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "rfc-author",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["design", "architecture", "planning"],
+      "systemPromptOverride": "Write concise RFCs for architectural decisions. Focus on tradeoffs and the recommended path. Keep it short — indie hackers need decisions, not essays.",
+      "compositionRules": {
+        "required": false,
+        "includeKeywords": ["architecture", "design", "system", "database", "api"]
+      }
+    }
+  ]
+}

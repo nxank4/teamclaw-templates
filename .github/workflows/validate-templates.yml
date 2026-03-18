@@ -1,0 +1,34 @@
+name: Validate Templates
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'templates/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli
+
+      - name: Validate all template.json files against schema
+        run: npx ajv-cli validate -s template.schema.json -d "templates/*/template.json"
+
+      - name: Check README.md exists for each template
+        run: |
+          exit_code=0
+          for dir in templates/*/; do
+            if [ ! -f "${dir}README.md" ]; then
+              echo "ERROR: Missing README.md in ${dir}"
+              exit_code=1
+            fi
+          done
+          exit $exit_code

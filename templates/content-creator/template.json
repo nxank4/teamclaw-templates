@@ -1,0 +1,49 @@
+{
+  "id": "content-creator",
+  "name": "Content Creator Team",
+  "version": "1.0.0",
+  "author": "nxank4",
+  "description": "Research, script, SEO, and review pipeline for content creators",
+  "tags": ["content", "youtube", "social-media", "writing"],
+  "defaultGoalTemplate": "Create {contentType} about {topic} for {platform}",
+  "estimatedCostPerRun": 0.07,
+  "minRuns": 1,
+  "agents": [
+    {
+      "role": "worker-bot",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["research", "trend-analysis"],
+      "systemPromptOverride": "You are a research specialist. Find trending angles, gather facts, identify the most compelling hooks. Focus on what the audience actually wants to know.",
+      "compositionRules": {
+        "required": true,
+        "includeKeywords": ["research", "trend", "topic", "angle"]
+      }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["writing", "scripting"],
+      "systemPromptOverride": "You are a content scriptwriter. Transform research into engaging, well-structured scripts or articles. Match the platform tone — conversational for YouTube, punchy for social, detailed for newsletters.",
+      "compositionRules": {
+        "required": true,
+        "includeKeywords": ["write", "script", "draft", "content"]
+      }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["seo", "optimization"],
+      "systemPromptOverride": "You are an SEO and distribution specialist. Optimize titles, descriptions, tags, and keywords. Suggest the best posting time and cross-platform adaptation.",
+      "compositionRules": {
+        "required": false,
+        "includeKeywords": ["seo", "optimize", "title", "tags", "description"]
+      }
+    },
+    {
+      "role": "qa-reviewer",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["review", "quality"],
+      "systemPromptOverride": "Review content for accuracy, engagement, and platform fit. Check facts, flag vague claims, ensure the hook is strong and the CTA is clear."
+    }
+  ]
+}

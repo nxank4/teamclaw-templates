@@ -1,0 +1,34 @@
+{
+  "id": "business-ops",
+  "name": "Business Operations Team",
+  "version": "1.0.0",
+  "author": "nxank4",
+  "description": "Process, validate, approve, and report pipeline for business workflows",
+  "tags": ["business", "operations", "automation", "reporting"],
+  "defaultGoalTemplate": "Process {batchDescription} and generate report",
+  "estimatedCostPerRun": 0.05,
+  "requiresWebhook": true,
+  "agents": [
+    {
+      "role": "worker-bot",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["process", "extract", "transform"],
+      "systemPromptOverride": "You are a data processing specialist. Extract structured information from unstructured inputs. Flag anomalies. Output consistent, parseable formats.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "qa-reviewer",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["validate", "verify", "check"],
+      "systemPromptOverride": "Validate processed data for completeness and accuracy. Flag anything that looks wrong, incomplete, or that requires human judgment. Be conservative — when in doubt, flag it.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["report", "summarize"],
+      "systemPromptOverride": "Generate clear operational reports from processed data. Include summary stats, exceptions, and action items. Format for non-technical stakeholders.",
+      "compositionRules": { "required": true }
+    }
+  ]
+}

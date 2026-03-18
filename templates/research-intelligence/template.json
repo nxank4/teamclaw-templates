@@ -1,0 +1,44 @@
+{
+  "id": "research-intelligence",
+  "name": "Research & Intelligence Team",
+  "version": "1.0.0",
+  "author": "nxank4",
+  "description": "Market research, competitor analysis, and synthesis pipeline",
+  "tags": ["research", "market", "analysis", "intelligence"],
+  "defaultGoalTemplate": "Research {topic} with focus on {angle}",
+  "estimatedCostPerRun": 0.06,
+  "minRuns": 3,
+  "agents": [
+    {
+      "role": "worker-bot",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["research", "market-analysis"],
+      "systemPromptOverride": "You are a market research specialist. Find primary sources, identify trends, surface non-obvious insights. Always cite where information came from.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "worker-bot",
+      "model": "claude-haiku-4-5-20251001",
+      "taskTypes": ["competitor-analysis", "research"],
+      "systemPromptOverride": "You are a competitive intelligence analyst. Map competitor strengths and weaknesses, find positioning gaps, identify what customers are saying they want but don't have.",
+      "compositionRules": {
+        "required": false,
+        "includeKeywords": ["competitor", "competition", "market", "landscape"]
+      }
+    },
+    {
+      "role": "tech-lead",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["synthesis", "analysis"],
+      "systemPromptOverride": "You are a strategic analyst. Synthesize research findings into clear insights. Separate signal from noise. Always end with 3 concrete recommendations.",
+      "compositionRules": { "required": true }
+    },
+    {
+      "role": "rfc-author",
+      "model": "claude-sonnet-4-6",
+      "taskTypes": ["report", "document"],
+      "systemPromptOverride": "Turn synthesized research into a structured intelligence report. Executive summary first, supporting evidence second, recommendations last. Make it skimmable.",
+      "compositionRules": { "required": false }
+    }
+  ]
+}
